@@ -1,0 +1,350 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ئامرازی تێکەڵکراوی Gann Wheel & Tesla 3-6-9</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --panel-bg: #0b0f19;
+            --accent-blue: #38bdf8;
+            --gold-primary: #f59e0b;
+            --gold-glow: #fbbf24;
+            --green-up: #10b981;
+            --red-down: #ef4444;
+            --text-main: #f8fafc;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid var(--border);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--gold-primary);
+            margin: 0 0 8px 0;
+            font-size: 24px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            background: var(--panel-bg);
+            padding: 18px;
+            border-radius: 10px;
+            align-items: flex-end;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        input, select {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: #1e293b;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--gold-primary);
+        }
+
+        button {
+            padding: 11px 25px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            height: 42px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .tesla-summary {
+            background-color: var(--panel-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-right: 4px solid var(--gold-primary);
+        }
+
+        .root-badge {
+            background: var(--gold-primary);
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .degree-info {
+            background-color: var(--panel-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .degree-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background: #1e293b;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .major { border-right: 3px solid var(--red-down); }
+        .minor { border-right: 3px solid var(--gold-primary); }
+        .sub { border-right: 3px solid var(--green-up); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: var(--panel-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #1e293b;
+            color: var(--accent-blue);
+        }
+
+        .badge-369 {
+            color: var(--gold-glow);
+            font-weight: bold;
+        }
+
+        .res-text { color: var(--red-down); font-weight: bold; }
+        .sup-text { color: var(--green-up); font-weight: bold; }
+        .date-text { color: var(--accent-blue); font-weight: bold; }
+        .time24-text { color: #facc15; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>ئامرازی تێکەڵکراوی Gann Wheel & Tesla 3-6-9</h1>
+        <p>دیاریکردنی ئاستەکانی نرخ، خولگەکانی کات و کۆدی ژمارەیی تێسلا بۆ فۆڕێکس و زێڕ</p>
+    </div>
+
+    <div class="control-panel">
+        <div class="input-group">
+            <label for="basePrice">نرخی بنچینەیی (Base Price):</label>
+            <input type="number" id="basePrice" placeholder="نموونە: 2000" value="2000" step="any">
+        </div>
+        <div class="input-group">
+            <label for="baseDateTime">کاتی لوتکە/قاع (Pivot Date & Time):</label>
+            <input type="datetime-local" id="baseDateTime">
+        </div>
+        <button onclick="calculateCombined()">هەژمارکردن</button>
+    </div>
+
+    <div id="resultsArea" style="display: none;">
+        
+        <div class="tesla-summary">
+            <div>
+                <span style="color: #94a3b8; font-size: 13px;">کۆدی ژمارەیی نرخی بنچینەیی (Digital Root):</span>
+                <div id="priceCodeText" style="font-size: 15px; margin-top: 4px;"></div>
+            </div>
+            <div id="rootBadge" class="root-badge">0</div>
+        </div>
+
+        <div class="degree-info">
+            <strong>پێوەری گۆشەکان و خولی کات (360° = 24 Hours):</strong>
+            <div class="degree-grid">
+                <div class="badge major"><span>🔴 سەرەکی (Cardinal)</span> <span>90°, 180°, 270°, 360°</span></div>
+                <div class="badge minor"><span>🟡 لاوەکی (Corner)</span> <span>45°, 135°, 225°, 315°</span></div>
+                <div class="badge sub"><span>🟢 شۆڕبووەوە (Hexagon)</span> <span>15°, 30°, 60°, 120°</span></div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>گۆشە (Deg)</th>
+                    <th>جۆری گۆشە</th>
+                    <th>پاڵپشتی (Support)</th>
+                    <th>بەرگری (Resistance)</th>
+                    <th>کۆدی تێسلا (Res)</th>
+                    <th>خولی ڕۆژانە</th>
+                    <th>خولی ٢٤ کاتژمێری (24h Time)</th>
+                </tr>
+            </thead>
+            <tbody id="combinedTableBody">
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    // دانانی کاتی ئێستا بە دیفۆڵت
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('baseDateTime').value = now.toISOString().slice(0, 16);
+
+    const gannAngles = [
+        { deg: 15,  type: 'Scalping (1h)', cat: 'sub' },
+        { deg: 30,  type: 'Hexagon (2h)', cat: 'sub' },
+        { deg: 45,  type: 'Corner (3h)', cat: 'minor' },
+        { deg: 60,  type: 'Hexagon (4h)', cat: 'sub' },
+        { deg: 90,  type: 'Cardinal (6h)', cat: 'major' },
+        { deg: 120, type: 'Hexagon (8h)', cat: 'sub' },
+        { deg: 135, type: 'Corner (9h)', cat: 'minor' },
+        { deg: 180, type: 'Half Cycle (12h)', cat: 'major' },
+        { deg: 225, type: 'Corner (15h)', cat: 'minor' },
+        { deg: 270, type: 'Cardinal (18h)', cat: 'major' },
+        { deg: 315, type: 'Corner (21h)', cat: 'minor' },
+        { deg: 360, type: 'Full Cycle (24h)', cat: 'major' }
+    ];
+
+    function getDigitalRoot(num) {
+        let cleanNum = Math.round(num).toString().replace('.', '');
+        while (cleanNum.length > 1) {
+            let sum = 0;
+            for (let char of cleanNum) {
+                sum += parseInt(char);
+            }
+            cleanNum = sum.toString();
+        }
+        return parseInt(cleanNum);
+    }
+
+    function calculateCombined() {
+        const basePrice = parseFloat(document.getElementById('basePrice').value);
+        const baseDateTimeVal = document.getElementById('baseDateTime').value;
+
+        if (isNaN(basePrice) || basePrice <= 0 || !baseDateTimeVal) return;
+
+        const baseDateTime = new Date(baseDateTimeVal);
+        const sqrtP = Math.sqrt(basePrice);
+        const root = getDigitalRoot(basePrice);
+
+        document.getElementById('resultsArea').style.display = 'block';
+        document.getElementById('rootBadge').innerText = root;
+
+        let codeMeaning = (root === 3 || root === 6 || root === 9) 
+            ? `<span class="badge-369">کۆدی تێسلای تەواوە (${root}) - ئاستێکی فیزیکی بەهێزە</span>` 
+            : `ژمارەی ئاسایی (${root})`;
+            
+        document.getElementById('priceCodeText').innerHTML = codeMeaning;
+
+        let tbodyHTML = '';
+
+        gannAngles.forEach(item => {
+            // 1. هەژمارکردنی نرخەکانی بەرگری و پاڵپشتی
+            const resVal = Math.pow(sqrtP + (item.deg / 180.0), 2);
+            const supVal = Math.pow(sqrtP - (item.deg / 180.0), 2);
+
+            const resFormatted = resVal.toFixed(2);
+            const supFormatted = supVal > 0 ? supVal.toFixed(2) : "0.00";
+
+            // 2. هەژمارکردنی کۆدی تێسلا بۆ بەرگری
+            const resRoot = getDigitalRoot(resVal);
+            const is369 = (resRoot === 3 || resRoot === 6 || resRoot === 9);
+
+            // 3. خولی کاتی ڕۆژانە
+            const dayCycle = new Date(baseDateTime);
+            dayCycle.setDate(dayCycle.getDate() + item.deg);
+            const formattedDay = dayCycle.toISOString().split('T')[0];
+
+            // 4. خولی کاتی ٢٤ کاتژمێری
+            const minutesToAdd = item.deg * 4;
+            const cycle24h = new Date(baseDateTime.getTime() + minutesToAdd * 60000);
+            const time24Str = cycle24h.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            const date24Str = cycle24h.toISOString().split('T')[0];
+
+            let labelColor = item.cat === 'major' ? 'var(--red-down)' : (item.cat === 'minor' ? 'var(--gold-primary)' : 'var(--green-up)');
+
+            tbodyHTML += `
+                <tr>
+                    <td><strong>${item.deg}°</strong></td>
+                    <td style="color: ${labelColor}; font-weight: 600;">${item.type}</td>
+                    <td class="sup-text">${supFormatted}</td>
+                    <td class="res-text">${resFormatted}</td>
+                    <td><span class="${is369 ? 'badge-369' : ''}">${resRoot} ${is369 ? '★' : ''}</span></td>
+                    <td class="date-text">${formattedDay}</td>
+                    <td class="time24-text">${date24Str} — ${time24Str}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('combinedTableBody').innerHTML = tbodyHTML;
+    }
+
+    window.onload = calculateCombined;
+</script>
+
+</body>
+</html>
