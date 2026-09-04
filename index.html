@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ئامرازی تێکەڵکراوی Gann Wheel & Tesla 3-6-9</title>
+    <title>پەڕەی ئامرازەکان</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -24,327 +24,438 @@
             color: var(--text-main);
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
+        /* Dashbaord Styles */
+        #main-menu {
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .menu-title {
+            color: var(--gold-primary);
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .app-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+        }
+
+        .app-icon {
+            font-size: 48px;
+        }
+
+        .app-card h3 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 18px;
+        }
+
+        /* Pages control */
+        .page {
+            display: none;
             width: 100%;
             max-width: 1100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .back-btn {
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        /* Tool 1 Specific Styles */
+        .t1-container {
+            width: 100%;
             background-color: var(--card-bg);
             padding: 25px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             border: 1px solid var(--border);
+            box-sizing: border-box;
         }
+        .t1-header { text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
+        .t1-header h1 { color: var(--gold-primary); margin: 0 0 8px 0; font-size: 24px; }
+        .t1-header p { color: #94a3b8; font-size: 13px; margin: 0; }
+        .t1-control-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; background: var(--panel-bg); padding: 18px; border-radius: 10px; align-items: flex-end; }
+        .t1-input-group { display: flex; flex-direction: column; gap: 6px; }
+        .t1-input-group label { font-size: 13px; color: #cbd5e1; }
+        .t1-input-group input, .t1-input-group select { padding: 10px; border-radius: 6px; border: 1px solid var(--border); background-color: #1e293b; color: #fff; font-size: 14px; outline: none; }
+        .t1-input-group input:focus, .t1-input-group select:focus { border-color: var(--gold-primary); }
+        .t1-btn { padding: 11px 25px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; height: 42px; }
+        .t1-btn:hover { opacity: 0.9; }
+        .t1-tesla-summary { background-color: var(--panel-bg); padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--gold-primary); }
+        .t1-root-badge { background: var(--gold-primary); color: #000; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 18px; }
+        .t1-degree-info { background-color: var(--panel-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; }
+        .t1-degree-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px; }
+        .t1-badge { padding: 8px 12px; border-radius: 4px; background: #1e293b; display: flex; justify-content: space-between; font-size: 12px; }
+        .t1-major { border-right: 3px solid var(--red-down); }
+        .t1-minor { border-right: 3px solid var(--gold-primary); }
+        .t1-sub { border-right: 3px solid var(--green-up); }
+        .t1-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--panel-bg); border-radius: 8px; overflow: hidden; }
+        .t1-table th, .t1-table td { padding: 12px 10px; text-align: center; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .t1-table th { background-color: #1e293b; color: var(--accent-blue); }
+        .t1-badge-369 { color: var(--gold-glow); font-weight: bold; }
+        .t1-res-text { color: var(--red-down); font-weight: bold; }
+        .t1-sup-text { color: var(--green-up); font-weight: bold; }
+        .t1-date-text { color: var(--accent-blue); font-weight: bold; }
+        .t1-time24-text { color: #facc15; font-weight: bold; }
 
-        .header {
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
+        /* Tool 2 Specific Styles */
+        .t2-wrapper { display: flex; justify-content: center; }
+        .t2-calculator-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 320px; text-align: center; color: #333; }
+        .t2-formula-display { background-color: #eef2f5; padding: 10px; border-radius: 6px; font-size: 16px; margin-bottom: 20px; color: #333; direction: ltr; }
+        .t2-input-group { margin-bottom: 15px; text-align: right; }
+        .t2-input-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        .t2-input-group input[type="number"], .t2-input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .t2-btn { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background 0.3s; }
+        .t2-btn:hover { background-color: #218838; }
+        .t2-result-box { margin-top: 20px; padding: 12px; background-color: #e9ecef; border-radius: 6px; font-size: 18px; font-weight: bold; color: #2b2b2b; }
 
-        .header h1 {
-            color: var(--gold-primary);
-            margin: 0 0 8px 0;
-            font-size: 24px;
-        }
-
-        .header p {
-            color: #94a3b8;
-            font-size: 13px;
-            margin: 0;
-        }
-
-        .control-panel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-            background: var(--panel-bg);
-            padding: 18px;
-            border-radius: 10px;
-            align-items: flex-end;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        label {
-            font-size: 13px;
-            color: #cbd5e1;
-        }
-
-        input, select {
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: #1e293b;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--gold-primary);
-        }
-
-        button {
-            padding: 11px 25px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #000;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-            height: 42px;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        .tesla-summary {
-            background-color: var(--panel-bg);
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-right: 4px solid var(--gold-primary);
-        }
-
-        .root-badge {
-            background: var(--gold-primary);
-            color: #000;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .degree-info {
-            background-color: var(--panel-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-
-        .degree-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .badge {
-            padding: 8px 12px;
-            border-radius: 4px;
-            background: #1e293b;
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-        }
-
-        .major { border-right: 3px solid var(--red-down); }
-        .minor { border-right: 3px solid var(--gold-primary); }
-        .sub { border-right: 3px solid var(--green-up); }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: var(--panel-bg);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-        }
-
-        th {
-            background-color: #1e293b;
-            color: var(--accent-blue);
-        }
-
-        .badge-369 {
-            color: var(--gold-glow);
-            font-weight: bold;
-        }
-
-        .res-text { color: var(--red-down); font-weight: bold; }
-        .sup-text { color: var(--green-up); font-weight: bold; }
-        .date-text { color: var(--accent-blue); font-weight: bold; }
-        .time24-text { color: #facc15; font-weight: bold; }
+        /* Tool 3 Specific Styles */
+        .t3-wrapper { display: flex; justify-content: center; }
+        .t3-box { width: 100%; max-width: 420px; background: #1c1c1c; padding: 25px; border-radius: 20px; box-shadow: 0 0 25px #000; text-align: center; box-sizing: border-box; }
+        .t3-box h1 { color: #00ff88; margin-top: 0; font-size: 30px; }
+        .t3-formula { font-size: 22px; color: #ffd166; margin: 20px 0; direction: ltr; }
+        .t3-input { width: 100%; padding: 15px; margin: 7px 0; border: 1px solid #333; border-radius: 10px; background: #0d0d0d; color: white; font-size: 20px; text-align: center; outline: none; box-sizing: border-box; }
+        .t3-input:focus { border-color: #00ff88; }
+        .t3-btn { width: 100%; padding: 15px; margin-top: 12px; border: none; border-radius: 10px; background: #00ff88; color: #001b0e; font-size: 19px; font-weight: bold; cursor: pointer; }
+        .t3-btn:active { transform: scale(0.98); }
+        .t3-reset { background: #333; color: white; }
+        .t3-result { margin-top: 20px; padding: 18px; background: #0c0c0c; border-radius: 12px; border: 1px solid #333; color: #00ff88; font-size: 26px; font-weight: bold; direction: ltr; }
+        .t3-error { color: #ff4d6d !important; font-size: 18px !important; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>ئامرازی تێکەڵکراوی Gann Wheel & Tesla 3-6-9</h1>
-        <p>دیاریکردنی ئاستەکانی نرخ، خولگەکانی کات و کۆدی ژمارەیی تێسلا بۆ فۆڕێکس و زێڕ</p>
-    </div>
-
-    <div class="control-panel">
-        <div class="input-group">
-            <label for="basePrice">نرخی بنچینەیی (Base Price):</label>
-            <input type="number" id="basePrice" placeholder="نموونە: 2000" value="2000" step="any">
-        </div>
-        <div class="input-group">
-            <label for="baseDateTime">کاتی لوتکە/قاع (Pivot Date & Time):</label>
-            <input type="datetime-local" id="baseDateTime">
-        </div>
-        <button onclick="calculateCombined()">هەژمارکردن</button>
-    </div>
-
-    <div id="resultsArea" style="display: none;">
-        
-        <div class="tesla-summary">
-            <div>
-                <span style="color: #94a3b8; font-size: 13px;">کۆدی ژمارەیی نرخی بنچینەیی (Digital Root):</span>
-                <div id="priceCodeText" style="font-size: 15px; margin-top: 4px;"></div>
+    <div id="main-menu">
+        <h1 class="menu-title">سەکۆی ئامرازەکان</h1>
+        <div class="grid-container">
+            <div class="app-card" onclick="showPage('tool1')">
+                <div class="app-icon">⚡</div>
+                <h3>GANN AND TESLA</h3>
             </div>
-            <div id="rootBadge" class="root-badge">0</div>
-        </div>
-
-        <div class="degree-info">
-            <strong>پێوەری گۆشەکان و خولی کات (360° = 24 Hours):</strong>
-            <div class="degree-grid">
-                <div class="badge major"><span>🔴 سەرەکی (Cardinal)</span> <span>90°, 180°, 270°, 360°</span></div>
-                <div class="badge minor"><span>🟡 لاوەکی (Corner)</span> <span>45°, 135°, 225°, 315°</span></div>
-                <div class="badge sub"><span>🟢 شۆڕبووەوە (Hexagon)</span> <span>15°, 30°, 60°, 120°</span></div>
+            <div class="app-card" onclick="showPage('tool2')">
+                <div class="app-icon">🔢</div>
+                <h3>CALCULATOR NUMBER 9</h3>
+            </div>
+            <div class="app-card" onclick="showPage('tool3')">
+                <div class="app-icon">🧮</div>
+                <h3>ABC CALCULATOR</h3>
             </div>
         </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>گۆشە (Deg)</th>
-                    <th>جۆری گۆشە</th>
-                    <th>پاڵپشتی (Support)</th>
-                    <th>بەرگری (Resistance)</th>
-                    <th>کۆدی تێسلا (Res)</th>
-                    <th>خولی ڕۆژانە</th>
-                    <th>خولی ٢٤ کاتژمێری (24h Time)</th>
-                </tr>
-            </thead>
-            <tbody id="combinedTableBody">
-            </tbody>
-        </table>
-
     </div>
-</div>
 
-<script>
-    // دانانی کاتی ئێستا بە دیفۆڵت
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    document.getElementById('baseDateTime').value = now.toISOString().slice(0, 16);
+    <div id="tool1" class="page">
+        <button class="back-btn" onclick="showMenu()">➔ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
+        <div class="t1-container">
+            <div class="t1-header">
+                <h1>ئامرازی تێکەڵکراوی Gann Wheel & Tesla 3-6-9</h1>
+                <p>دیاریکردنی ئاستەکانی نرخ، خولگەکانی کات و کۆدی ژمارەیی تێسلا بۆ فۆڕێکس و زێڕ</p>
+            </div>
 
-    const gannAngles = [
-        { deg: 15,  type: 'Scalping (1h)', cat: 'sub' },
-        { deg: 30,  type: 'Hexagon (2h)', cat: 'sub' },
-        { deg: 45,  type: 'Corner (3h)', cat: 'minor' },
-        { deg: 60,  type: 'Hexagon (4h)', cat: 'sub' },
-        { deg: 90,  type: 'Cardinal (6h)', cat: 'major' },
-        { deg: 120, type: 'Hexagon (8h)', cat: 'sub' },
-        { deg: 135, type: 'Corner (9h)', cat: 'minor' },
-        { deg: 180, type: 'Half Cycle (12h)', cat: 'major' },
-        { deg: 225, type: 'Corner (15h)', cat: 'minor' },
-        { deg: 270, type: 'Cardinal (18h)', cat: 'major' },
-        { deg: 315, type: 'Corner (21h)', cat: 'minor' },
-        { deg: 360, type: 'Full Cycle (24h)', cat: 'major' }
-    ];
+            <div class="t1-control-panel">
+                <div class="t1-input-group">
+                    <label for="basePrice">نرخی بنچینەیی (Base Price):</label>
+                    <input type="number" id="basePrice" placeholder="نموونە: 2000" value="2000" step="any">
+                </div>
+                <div class="t1-input-group">
+                    <label for="baseDateTime">کاتی لوتکە/قاع (Pivot Date & Time):</label>
+                    <input type="datetime-local" id="baseDateTime">
+                </div>
+                <button class="t1-btn" onclick="calculateCombined()">هەژمارکردن</button>
+            </div>
 
-    function getDigitalRoot(num) {
-        let cleanNum = Math.round(num).toString().replace('.', '');
-        while (cleanNum.length > 1) {
-            let sum = 0;
-            for (let char of cleanNum) {
-                sum += parseInt(char);
-            }
-            cleanNum = sum.toString();
+            <div id="resultsArea" style="display: none;">
+                <div class="t1-tesla-summary">
+                    <div>
+                        <span style="color: #94a3b8; font-size: 13px;">کۆدی ژمارەیی نرخی بنچینەیی (Digital Root):</span>
+                        <div id="priceCodeText" style="font-size: 15px; margin-top: 4px;"></div>
+                    </div>
+                    <div id="rootBadge" class="t1-root-badge">0</div>
+                </div>
+
+                <div class="t1-degree-info">
+                    <strong>پێوەری گۆشەکان و خولی کات (360° = 24 Hours):</strong>
+                    <div class="t1-degree-grid">
+                        <div class="t1-badge t1-major"><span>🔴 سەرەکی (Cardinal)</span> <span>90°, 180°, 270°, 360°</span></div>
+                        <div class="t1-badge t1-minor"><span>🟡 لاوەکی (Corner)</span> <span>45°, 135°, 225°, 315°</span></div>
+                        <div class="t1-badge t1-sub"><span>🟢 شۆڕبووەوە (Hexagon)</span> <span>15°, 30°, 60°, 120°</span></div>
+                    </div>
+                </div>
+
+                <table class="t1-table">
+                    <thead>
+                        <tr>
+                            <th>گۆشە (Deg)</th>
+                            <th>جۆری گۆشە</th>
+                            <th>پاڵپشتی (Support)</th>
+                            <th>بەرگری (Resistance)</th>
+                            <th>کۆدی تێسلا (Res)</th>
+                            <th>خولی ڕۆژانە</th>
+                            <th>خولی ٢٤ کاتژمێری (24h Time)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="combinedTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="tool2" class="page">
+        <button class="back-btn" onclick="showMenu()">➔ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
+        <div class="t2-wrapper">
+            <div class="t2-calculator-card">
+                <h2>حاسبەی یاسای نرخ</h2>
+                <div class="t2-formula-display">
+                    Result = Price ± (Price × 9 ÷ 360)
+                </div>
+                <div class="t2-input-group">
+                    <label for="price">نرخ (Price):</label>
+                    <input type="number" id="price" placeholder="بڕی نرخ بنووسە..." step="any">
+                </div>
+                <div class="t2-input-group">
+                    <label for="operation">کردارەکە (Operation):</label>
+                    <select id="operation">
+                        <option value="add">کۆکرنەوە (+)</option>
+                        <option value="subtract">دەرکردن (-)</option>
+                    </select>
+                </div>
+                <button class="t2-btn" onclick="calculateT2()">هەژمارکردن</button>
+                <div class="t2-result-box" id="resultT2">
+                    ئەنجام: 0
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tool3" class="page">
+        <button class="back-btn" onclick="showMenu()">➔ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
+        <div class="t3-wrapper">
+            <div class="t3-box">
+                <h1>ABC Calculator</h1>
+                <div class="t3-formula">
+                    B × C ÷ A
+                </div>
+                <input type="number" id="A" class="t3-input" placeholder="A" step="any" inputmode="decimal">
+                <input type="number" id="B" class="t3-input" placeholder="B" step="any" inputmode="decimal">
+                <input type="number" id="C" class="t3-input" placeholder="C" step="any" inputmode="decimal">
+                <button class="t3-btn" onclick="calculateT3()">CALCULATE</button>
+                <button class="t3-btn t3-reset" onclick="resetCalculatorT3()">RESET</button>
+                <div id="resultT3" class="t3-result">
+                    Result = —
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Logic
+        function showPage(pageId) {
+            document.getElementById('main-menu').style.display = 'none';
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
         }
-        return parseInt(cleanNum);
-    }
 
-    function calculateCombined() {
-        const basePrice = parseFloat(document.getElementById('basePrice').value);
-        const baseDateTimeVal = document.getElementById('baseDateTime').value;
+        function showMenu() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('main-menu').style.display = 'block';
+        }
 
-        if (isNaN(basePrice) || basePrice <= 0 || !baseDateTimeVal) return;
+        // TOOL 1 LOGIC
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('baseDateTime').value = now.toISOString().slice(0, 16);
 
-        const baseDateTime = new Date(baseDateTimeVal);
-        const sqrtP = Math.sqrt(basePrice);
-        const root = getDigitalRoot(basePrice);
+        const gannAngles = [
+            { deg: 15,  type: 'Scalping (1h)', cat: 'sub' },
+            { deg: 30,  type: 'Hexagon (2h)', cat: 'sub' },
+            { deg: 45,  type: 'Corner (3h)', cat: 'minor' },
+            { deg: 60,  type: 'Hexagon (4h)', cat: 'sub' },
+            { deg: 90,  type: 'Cardinal (6h)', cat: 'major' },
+            { deg: 120, type: 'Hexagon (8h)', cat: 'sub' },
+            { deg: 135, type: 'Corner (9h)', cat: 'minor' },
+            { deg: 180, type: 'Half Cycle (12h)', cat: 'major' },
+            { deg: 225, type: 'Corner (15h)', cat: 'minor' },
+            { deg: 270, type: 'Cardinal (18h)', cat: 'major' },
+            { deg: 315, type: 'Corner (21h)', cat: 'minor' },
+            { deg: 360, type: 'Full Cycle (24h)', cat: 'major' }
+        ];
 
-        document.getElementById('resultsArea').style.display = 'block';
-        document.getElementById('rootBadge').innerText = root;
+        function getDigitalRoot(num) {
+            let cleanNum = Math.round(num).toString().replace('.', '');
+            while (cleanNum.length > 1) {
+                let sum = 0;
+                for (let char of cleanNum) {
+                    sum += parseInt(char);
+                }
+                cleanNum = sum.toString();
+            }
+            return parseInt(cleanNum);
+        }
 
-        let codeMeaning = (root === 3 || root === 6 || root === 9) 
-            ? `<span class="badge-369">کۆدی تێسلای تەواوە (${root}) - ئاستێکی فیزیکی بەهێزە</span>` 
-            : `ژمارەی ئاسایی (${root})`;
-            
-        document.getElementById('priceCodeText').innerHTML = codeMeaning;
+        function calculateCombined() {
+            const basePrice = parseFloat(document.getElementById('basePrice').value);
+            const baseDateTimeVal = document.getElementById('baseDateTime').value;
 
-        let tbodyHTML = '';
+            if (isNaN(basePrice) || basePrice <= 0 || !baseDateTimeVal) return;
 
-        gannAngles.forEach(item => {
-            // 1. هەژمارکردنی نرخەکانی بەرگری و پاڵپشتی
-            const resVal = Math.pow(sqrtP + (item.deg / 180.0), 2);
-            const supVal = Math.pow(sqrtP - (item.deg / 180.0), 2);
+            const baseDateTime = new Date(baseDateTimeVal);
+            const sqrtP = Math.sqrt(basePrice);
+            const root = getDigitalRoot(basePrice);
 
-            const resFormatted = resVal.toFixed(2);
-            const supFormatted = supVal > 0 ? supVal.toFixed(2) : "0.00";
+            document.getElementById('resultsArea').style.display = 'block';
+            document.getElementById('rootBadge').innerText = root;
 
-            // 2. هەژمارکردنی کۆدی تێسلا بۆ بەرگری
-            const resRoot = getDigitalRoot(resVal);
-            const is369 = (resRoot === 3 || resRoot === 6 || resRoot === 9);
+            let codeMeaning = (root === 3 || root === 6 || root === 9) 
+                ? `<span class="t1-badge-369">کۆدی تێسلای تەواوە (${root}) - ئاستێکی فیزیکی بەهێزە</span>` 
+                : `ژمارەی ئاسایی (${root})`;
+                
+            document.getElementById('priceCodeText').innerHTML = codeMeaning;
 
-            // 3. خولی کاتی ڕۆژانە
-            const dayCycle = new Date(baseDateTime);
-            dayCycle.setDate(dayCycle.getDate() + item.deg);
-            const formattedDay = dayCycle.toISOString().split('T')[0];
+            let tbodyHTML = '';
 
-            // 4. خولی کاتی ٢٤ کاتژمێری
-            const minutesToAdd = item.deg * 4;
-            const cycle24h = new Date(baseDateTime.getTime() + minutesToAdd * 60000);
-            const time24Str = cycle24h.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-            const date24Str = cycle24h.toISOString().split('T')[0];
+            gannAngles.forEach(item => {
+                const resVal = Math.pow(sqrtP + (item.deg / 180.0), 2);
+                const supVal = Math.pow(sqrtP - (item.deg / 180.0), 2);
 
-            let labelColor = item.cat === 'major' ? 'var(--red-down)' : (item.cat === 'minor' ? 'var(--gold-primary)' : 'var(--green-up)');
+                const resFormatted = resVal.toFixed(2);
+                const supFormatted = supVal > 0 ? supVal.toFixed(2) : "0.00";
 
-            tbodyHTML += `
-                <tr>
-                    <td><strong>${item.deg}°</strong></td>
-                    <td style="color: ${labelColor}; font-weight: 600;">${item.type}</td>
-                    <td class="sup-text">${supFormatted}</td>
-                    <td class="res-text">${resFormatted}</td>
-                    <td><span class="${is369 ? 'badge-369' : ''}">${resRoot} ${is369 ? '★' : ''}</span></td>
-                    <td class="date-text">${formattedDay}</td>
-                    <td class="time24-text">${date24Str} — ${time24Str}</td>
-                </tr>
-            `;
-        });
+                const resRoot = getDigitalRoot(resVal);
+                const is369 = (resRoot === 3 || resRoot === 6 || resRoot === 9);
 
-        document.getElementById('combinedTableBody').innerHTML = tbodyHTML;
-    }
+                const dayCycle = new Date(baseDateTime);
+                dayCycle.setDate(dayCycle.getDate() + item.deg);
+                const formattedDay = dayCycle.toISOString().split('T')[0];
 
-    window.onload = calculateCombined;
-</script>
+                const minutesToAdd = item.deg * 4;
+                const cycle24h = new Date(baseDateTime.getTime() + minutesToAdd * 60000);
+                const time24Str = cycle24h.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                const date24Str = cycle24h.toISOString().split('T')[0];
 
+                let labelColor = item.cat === 'major' ? 'var(--red-down)' : (item.cat === 'minor' ? 'var(--gold-primary)' : 'var(--green-up)');
+
+                tbodyHTML += `
+                    <tr>
+                        <td><strong>${item.deg}°</strong></td>
+                        <td style="color: ${labelColor}; font-weight: 600;">${item.type}</td>
+                        <td class="t1-sup-text">${supFormatted}</td>
+                        <td class="t1-res-text">${resFormatted}</td>
+                        <td><span class="${is369 ? 't1-badge-369' : ''}">${resRoot} ${is369 ? '★' : ''}</span></td>
+                        <td class="t1-date-text">${formattedDay}</td>
+                        <td class="t1-time24-text">${date24Str} — ${time24Str}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('combinedTableBody').innerHTML = tbodyHTML;
+        }
+
+        // TOOL 2 LOGIC
+        function calculateT2() {
+            const priceInput = document.getElementById('price').value;
+            const operation = document.getElementById('operation').value;
+            const resultDiv = document.getElementById('resultT2');
+
+            if (priceInput === '' || isNaN(priceInput)) {
+                resultDiv.innerHTML = "تکایە نرخێکی دروست بنووسە";
+                return;
+            }
+
+            const price = parseFloat(priceInput);
+            const percentageValue = (price * 9) / 360;
+            let finalResult = 0;
+
+            if (operation === 'add') {
+                finalResult = price + percentageValue;
+            } else {
+                finalResult = price - percentageValue;
+            }
+
+            resultDiv.innerHTML = `ئەنجام: ${finalResult.toFixed(2)}`;
+        }
+
+        // TOOL 3 LOGIC
+        function calculateT3() {
+            const A = parseFloat(document.getElementById("A").value);
+            const B = parseFloat(document.getElementById("B").value);
+            const C = parseFloat(document.getElementById("C").value);
+            const result = document.getElementById("resultT3");
+
+            if (isNaN(A) || isNaN(B) || isNaN(C)) {
+                result.className = "t3-result t3-error";
+                result.innerHTML = "تکایە A و B و C پڕبکەرەوە";
+                return;
+            }
+
+            if (A === 0) {
+                result.className = "t3-result t3-error";
+                result.innerHTML = "A نابێت 0 بێت";
+                return;
+            }
+
+            const answer = (B * C) / A;
+            result.className = "t3-result";
+            result.innerHTML = "Result = " + answer.toFixed(4);
+        }
+
+        function resetCalculatorT3() {
+            document.getElementById("A").value = "";
+            document.getElementById("B").value = "";
+            document.getElementById("C").value = "";
+            const result = document.getElementById("resultT3");
+            result.className = "t3-result";
+            result.innerHTML = "Result = —";
+        }
+    </script>
 </body>
 </html>
