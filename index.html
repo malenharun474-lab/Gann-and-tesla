@@ -30,7 +30,7 @@
             align-items: center;
         }
 
-        /* Dashbaord Styles */
+        /* Dashboard Styles */
         #main-menu {
             width: 100%;
             max-width: 1000px;
@@ -169,6 +169,27 @@
         .t3-reset { background: #333; color: white; }
         .t3-result { margin-top: 20px; padding: 18px; background: #0c0c0c; border-radius: 12px; border: 1px solid #333; color: #00ff88; font-size: 26px; font-weight: bold; direction: ltr; }
         .t3-error { color: #ff4d6d !important; font-size: 18px !important; }
+
+        /* Tool 4 Specific Styles */
+        .t4-wrapper { display: flex; justify-content: center; }
+        .t4-calculator-card { background: #1c2541; padding: 32px; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6); width: 100%; max-width: 440px; border: 1px solid #3a506b; }
+        .t4-header { text-align: center; margin-bottom: 24px; }
+        .t4-header h2 { color: #e0a96d; margin: 0 0 8px 0; font-size: 22px; }
+        .t4-header p { color: #94a3b8; font-size: 13px; margin: 0; }
+        .t4-input-group { margin-bottom: 18px; text-align: right; }
+        .t4-input-group label { display: block; margin-bottom: 8px; color: #cbd5e1; font-size: 14px; font-weight: 500; }
+        .t4-input-group input { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #3a506b; background-color: #0b132b; color: #ffffff; font-size: 16px; outline: none; transition: all 0.2s ease; box-sizing: border-box; }
+        .t4-input-group input:focus { border-color: #e0a96d; box-shadow: 0 0 8px rgba(224, 169, 109, 0.3); }
+        .t4-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e0a96d 0%, #c88a4b 100%); color: #0b132b; border: none; border-radius: 8px; font-size: 17px; font-weight: bold; cursor: pointer; transition: transform 0.1s ease, box-shadow 0.2s ease; margin-top: 10px; }
+        .t4-btn:hover { box-shadow: 0 4px 15px rgba(224, 169, 109, 0.4); }
+        .t4-btn:active { transform: scale(0.98); }
+        .t4-results { margin-top: 24px; padding: 18px; background-color: #0b132b; border-radius: 10px; border-right: 4px solid #e0a96d; display: none; }
+        .t4-result-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 15px; }
+        .t4-result-row:last-child { margin-bottom: 0; }
+        .t4-result-label { color: #94a3b8; }
+        .t4-result-value { font-weight: bold; color: #ffffff; font-size: 16px; }
+        .t4-main-result { font-size: 20px; color: #e0a96d; }
+        .t4-levels-section { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #3a506b; }
     </style>
 </head>
 <body>
@@ -186,7 +207,11 @@
             </div>
             <div class="app-card" onclick="showPage('tool3')">
                 <div class="app-icon">🧮</div>
-                <h3>ABC CALCULATOR</h3>
+                <h3>GANN CALCULATOR</h3>
+            </div>
+            <div class="app-card" onclick="showPage('tool4')">
+                <div class="app-icon">📈</div>
+                <h3>GANN LEVELS CALCULATOR</h3>
             </div>
         </div>
     </div>
@@ -253,9 +278,6 @@
         <div class="t2-wrapper">
             <div class="t2-calculator-card">
                 <h2>حاسبەی یاسای نرخ</h2>
-                <div class="t2-formula-display">
-                    Result = Price ± (Price × 9 ÷ 360)
-                </div>
                 <div class="t2-input-group">
                     <label for="price">نرخ (Price):</label>
                     <input type="number" id="price" placeholder="بڕی نرخ بنووسە..." step="any">
@@ -279,17 +301,69 @@
         <button class="back-btn" onclick="showMenu()">➔ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
         <div class="t3-wrapper">
             <div class="t3-box">
-                <h1>ABC Calculator</h1>
-                <div class="t3-formula">
-                    B × C ÷ A
-                </div>
-                <input type="number" id="A" class="t3-input" placeholder="A" step="any" inputmode="decimal">
-                <input type="number" id="B" class="t3-input" placeholder="B" step="any" inputmode="decimal">
-                <input type="number" id="C" class="t3-input" placeholder="C" step="any" inputmode="decimal">
+                <h1>GANN CALCULATOR</h1>
+                <input type="number" id="A" class="t3-input" placeholder="Price" step="any" inputmode="decimal">
+                <input type="number" id="B" class="t3-input" placeholder="first move" step="any" inputmode="decimal">
+                <input type="number" id="C" class="t3-input" placeholder="second move" step="any" inputmode="decimal">
                 <button class="t3-btn" onclick="calculateT3()">CALCULATE</button>
                 <button class="t3-btn t3-reset" onclick="resetCalculatorT3()">RESET</button>
                 <div id="resultT3" class="t3-result">
                     Result = —
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tool4" class="page">
+        <button class="back-btn" onclick="showMenu()">➔ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
+        <div class="t4-wrapper">
+            <div class="t4-calculator-card">
+                <div class="t4-header">
+                    <h2>ئەژمارکەری ئاستەکان</h2>
+                    <p>دەرهێنانی بەهای Gann و ئاستەکانی نرخ</p>
+                </div>
+
+                <div class="t4-input-group">
+                    <label for="swingHigh">Swing High (بەرزترین نرخ):</label>
+                    <input type="number" step="any" id="swingHigh" placeholder="نموونە: 4409">
+                </div>
+
+                <div class="t4-input-group">
+                    <label for="swingLow">Swing Low (نزمترین نرخ):</label>
+                    <input type="number" step="any" id="swingLow" placeholder="نموونە: 4389">
+                </div>
+
+                <button class="t4-btn" onclick="calculateLevels26()">ئەژمارکردنی نرخەکان</button>
+
+                <div class="t4-results" id="resultContainer">
+                    <div class="t4-result-row">
+                        <span class="t4-result-label">مەودا (Range):</span>
+                        <span class="t4-result-value" id="rangeVal">0.00</span>
+                    </div>
+                    
+                    <div class="t4-result-row" style="margin-top: 10px;">
+                        <span class="t4-result-label">بەهای Gann:</span>
+                        <span class="t4-result-value t4-main-result" id="dividedVal">0.00</span>
+                    </div>
+
+                    <div class="t4-levels-section">
+                        <div class="t4-result-row">
+                            <span class="t4-result-label">ئاست لە سەرەوە (High + بەها):</span>
+                            <span class="t4-result-value" id="highPlusVal" style="color: #4ade80;">0.00</span>
+                        </div>
+                        <div class="t4-result-row" style="margin-top: 10px;">
+                            <span class="t4-result-label">ئاستی ناوەوە (High - بەها):</span>
+                            <span class="t4-result-value" id="highMinusVal" style="color: #60a5fa;">0.00</span>
+                        </div>
+                        <div class="t4-result-row" style="margin-top: 10px;">
+                            <span class="t4-result-label">ئاستی ناوەوە (Low + بەها):</span>
+                            <span class="t4-result-value" id="lowPlusVal" style="color: #38bdf8;">0.00</span>
+                        </div>
+                        <div class="t4-result-row" style="margin-top: 10px;">
+                            <span class="t4-result-label">ئاست لە خوارەوە (Low - بەها):</span>
+                            <span class="t4-result-value" id="lowMinusVal" style="color: #f87171;">0.00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -433,13 +507,13 @@
 
             if (isNaN(A) || isNaN(B) || isNaN(C)) {
                 result.className = "t3-result t3-error";
-                result.innerHTML = "تکایە A و B و C پڕبکەرەوە";
+                result.innerHTML = "تکایە خانەکان پڕبکەرەوە";
                 return;
             }
 
             if (A === 0) {
                 result.className = "t3-result t3-error";
-                result.innerHTML = "A نابێت 0 بێت";
+                result.innerHTML = "Price نابێت 0 بێت";
                 return;
             }
 
@@ -455,6 +529,40 @@
             const result = document.getElementById("resultT3");
             result.className = "t3-result";
             result.innerHTML = "Result = —";
+        }
+
+        // TOOL 4 LOGIC
+        function calculateLevels26() {
+            const swingHigh = parseFloat(document.getElementById('swingHigh').value);
+            const swingLow = parseFloat(document.getElementById('swingLow').value);
+
+            if (isNaN(swingHigh) || isNaN(swingLow)) {
+                alert('تکایە هەردوو نرخەکە بنووسە.');
+                return;
+            }
+
+            if (swingHigh <= swingLow) {
+                alert('دەبێت Swing High گەورەتر بێت لە Swing Low!');
+                return;
+            }
+
+            const range = swingHigh - swingLow;
+            const value26 = range / 2.6;
+
+            const highPlus = swingHigh + value26;
+            const highMinus = swingHigh - value26;
+            const lowPlus = swingLow + value26;
+            const lowMinus = swingLow - value26;
+
+            document.getElementById('rangeVal').innerText = range.toFixed(2);
+            document.getElementById('dividedVal').innerText = value26.toFixed(2);
+            
+            document.getElementById('highPlusVal').innerText = highPlus.toFixed(2);
+            document.getElementById('highMinusVal').innerText = highMinus.toFixed(2);
+            document.getElementById('lowPlusVal').innerText = lowPlus.toFixed(2);
+            document.getElementById('lowMinusVal').innerText = lowMinus.toFixed(2);
+
+            document.getElementById('resultContainer').style.display = 'block';
         }
     </script>
 </body>
